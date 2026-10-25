@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Learning Command Center — Go, React TS, Next.js & .NET</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="min-h-screen flex flex-col md:flex-row bg-[#0b0f19] text-slate-100">
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="w-full md:w-72 bg-slate-900/90 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between shrink-0">
+    <div>
+      <!-- Brand Header -->
+      <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-slate-950 font-bold text-lg shadow-lg">
+          <i class="fa-solid fa-terminal"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-white text-base leading-tight">Dev Command Center</h1>
+          <p class="text-xs text-slate-400">PHP &rarr; Go • TS • Next • .NET</p>
+        </div>
+      </div>
+
+      <!-- Overall Progress Widget -->
+      <div class="p-4 mx-4 mt-4 rounded-xl bg-slate-950/80 border border-slate-800/90">
+        <div class="flex items-center justify-between text-xs mb-1.5">
+          <span class="text-slate-400 font-medium">Total Penguasaan Stack</span>
+          <span id="sidebar-overall-percent" class="text-emerald-400 font-mono font-semibold">0%</span>
+        </div>
+        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+          <div id="sidebar-overall-bar" class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-full progress-bar-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="p-3 space-y-1 mt-2">
+        <button data-tab="dashboard" onclick="switchTab('dashboard')"
+          class="nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 transition">
+          <i class="fa-solid fa-gauge-high w-5 text-center text-indigo-400"></i>
+          <span>Dashboard & Ceklis Harian</span>
+        </button>
+
+        <button data-tab="roadmap" onclick="switchTab('roadmap')"
+          class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 transition">
+          <i class="fa-solid fa-route w-5 text-center text-cyan-400"></i>
+          <span>Roadmap & Modul Stack</span>
+        </button>
+
+        <button data-tab="bridge" onclick="switchTab('bridge')"
+          class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 transition">
+          <i class="fa-solid fa-bridge w-5 text-center text-amber-400"></i>
+          <span>Jembatan Konsep (PHP &rarr; Baru)</span>
+        </button>
+
+        <button data-tab="snippets" onclick="switchTab('snippets')"
+          class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 transition">
+          <i class="fa-solid fa-code w-5 text-center text-emerald-400"></i>
+          <span>Snippet & AI Prompt Bank</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Backup & Data Management Footer -->
+    <div class="p-4 border-t border-slate-800 space-y-2">
+      <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Penyimpanan Lokal (Offline)</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="exportBackupJSON()" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium transition">
+          <i class="fa-solid fa-download text-indigo-400"></i> Export JSON
+        </button>
+        <label class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium cursor-pointer transition">
+          <i class="fa-solid fa-upload text-emerald-400"></i> Import JSON
+          <input type="file" accept=".json" class="hidden" onchange="importBackupJSON(event)" />
+        </label>
+      </div>
+      <button onclick="resetToDefaultData()" class="w-full text-center text-[11px] text-slate-500 hover:text-rose-400 py-1 transition">
+        Reset ke Kurikulum Default
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1 flex flex-col min-w-0">
+    <!-- Top Status Bar -->
+    <header class="px-6 py-4 bg-slate-900/50 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-medium text-slate-300">
+          Workspace Pembelajaran Mandiri • <span class="text-indigo-400 font-semibold">Zero-Server Local App</span>
+        </h2>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-medium">
+          <i class="fa-solid fa-fire text-amber-400"></i>
+          <span>Streak: <strong id="header-streak-count">3 Hari</strong></span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium">
+          <i class="fa-solid fa-clock text-indigo-400"></i>
+          <span>Fokus Selesai: <strong id="header-pomo-count">4 Sesi</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Container -->
+    <div class="p-6 max-w-7xl w-full mx-auto space-y-6">
+
+      <!-- ================= TAB 1: DASHBOARD & DAILY CHECKLIST ================= -->
+      <section id="tab-dashboard" class="tab-section space-y-6">
+        <!-- Top Banner: Today's Focus + Pomodoro Timer -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Focus Card -->
+          <div class="lg:col-span-2 glass-card rounded-xl p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">
+                  <i class="fa-solid fa-bullseye mr-1.5"></i>Fokus Utama Hari Ini
+                </span>
+                <span class="text-xs text-slate-400">Tersimpan otomatis di browser lokal</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">
+                Tentukan 1-2 target spesifik yang ingin Anda pahami atau kerjakan hari ini (misal: bedah kode RTMS_Monitoring atau latihan komponen React TS).
+              </p>
+              <div class="flex gap-2">
+                <input id="today-focus-input" type="text"
+                  placeholder="Tulis fokus belajar hari ini..."
+                  class="flex-1 bg-slate-900/90 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500" />
+                <button onclick="saveTodayFocus()"
+                  class="px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition shrink-0">
+                  Simpan Fokus
+                </button>
+              </div>
+            </div>
+
+            <!-- Study Method Tip for PHP Developers -->
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-start gap-2.5 text-xs text-slate-300">
+              <i class="fa-solid fa-wand-magic-sparkles text-cyan-400 mt-0.5"></i>
+              <span>
+                <strong>Tips Transisi Cepat dari Laravel/Yii:</strong> Jangan hafalkan sintaks dari nol. Selalu tanyakan:
+                <em>"Bagaimana cara melakukan Route, Middleware, Validation, dan Query Database yang biasa saya buat di Laravel ke dalam Golang / React TS / .NET?"</em>
+              </span>
+            </div>
+          </div>
+
+          <!-- Pomodoro Study Timer -->
+          <div class="glass-card rounded-xl p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+                <i class="fa-solid fa-stopwatch mr-1.5"></i>Timer Belajar (Deep Work)
+              </span>
+              <div class="flex gap-1">
+                <button onclick="setTimerMode(25)" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">25m</button>
+                <button onclick="setTimerMode(50)" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">50m</button>
+              </div>
+            </div>
+            <div class="my-4 text-center">
+              <div id="timer-display" class="text-4xl font-mono font-bold text-white tracking-wider">25:00</div>
+              <p class="text-xs text-slate-400 mt-1">Fokus tanpa distraksi melihat dokumentasi & eksperimen kode</p>
+            </div>
+            <div class="flex items-center justify-center gap-2">
+              <button id="timer-toggle-btn" onclick="toggleTimer()"
+                class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition">
+                <i class="fa-solid fa-play mr-1.5"></i>Mulai
+              </button>
+              <button onclick="resetTimer()"
+                class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition">
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Progress Cards -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-white">Progress Penguasaan 4 Tech Stack</h3>
+            <span class="text-xs text-slate-400">Klik kartu untuk membuka detail roadmap & ceklis sub-topik</span>
+          </div>
+          <div id="dashboard-stack-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+        </div>
+
+        <!-- Daily Checklist Section -->
+        <div class="glass-card rounded-xl p-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-800">
+            <div>
+              <h3 class="text-base font-bold text-white">
+                <i class="fa-solid fa-list-check text-emerald-400 mr-2"></i>Ceklis Rutinitas Belajar Harian
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Target kecil namun konsisten setiap hari (1-2 jam efektif).</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <span id="daily-checklist-counter" class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">0/0 Selesai</span>
+              <button onclick="resetDailyChecklist()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition">
+                <i class="fa-solid fa-arrows-rotate mr-1"></i>Hari Baru (+Streak)
+              </button>
+            </div>
+          </div>
+
+          <div id="daily-checklist-container" class="space-y-2.5 mb-4"></div>
+
+          <!-- Add New Daily Check Item -->
+          <form onsubmit="addDailyCheck(event)" class="flex flex-col sm:flex-row gap-2 pt-2 border-t border-slate-800/80">
+            <input id="new-daily-text" type="text" placeholder="Tambah agenda belajar hari ini..."
+              class="flex-1 bg-slate-900/90 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
+            <select id="new-daily-category"
+              class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500">
+              <option value="Golang">Golang</option>
+              <option value="React TS">React TS</option>
+              <option value="Next.js">Next.js</option>
+              <option value=".NET">.NET</option>
+              <option value="AI & Riset">AI & Riset</option>
+            </select>
+            <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium transition">
+              + Tambah Target
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: ROADMAP & MODULES ================= -->
+      <section id="tab-roadmap" class="tab-section hidden space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">Kurikulum & Tracker Penguasaan Stack</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Centang materi yang sudah Anda pahami atau praktikkan. Anda juga bisa menambah catatan topik sendiri di tiap modul.</p>
+          </div>
+          <div id="roadmap-stack-tabs" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <div id="roadmap-modules-container"></div>
+      </section>
+
+      <!-- ================= TAB 3: CONCEPT BRIDGE (PHP -> NEW STACK) ================= -->
+      <section id="tab-bridge" class="tab-section hidden space-y-6">
+        <div class="glass-card rounded-xl p-5">
+          <h2 class="text-xl font-bold text-white">
+            <i class="fa-solid fa-bridge text-amber-400 mr-2"></i>Jembatan Konsep: Laravel / Yii &rarr; Golang, React TS, Next.js & .NET
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">
+            Karena Anda sudah memiliki fondasi kuat di PHP (Laravel & Yii), gunakan tabel referensi cepat ini untuk menerjemahkan konsep yang sudah Anda kenal ke stack baru.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-xl overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-900/90 border-b border-slate-800 text-xs uppercase tracking-wider text-slate-400">
+                  <th class="p-3.5">Konsep Arsitektur</th>
+                  <th class="p-3.5 text-rose-400"><i class="fa-brands fa-laravel mr-1"></i>Laravel / Yii (PHP)</th>
+                  <th class="p-3.5 text-cyan-400"><i class="fa-brands fa-golang mr-1"></i>Golang (Gin)</th>
+                  <th class="p-3.5 text-sky-400"><i class="fa-brands fa-react mr-1"></i>React TS / Next.js</th>
+                  <th class="p-3.5 text-purple-400"><i class="fa-solid fa-cubes mr-1"></i>.NET (ASP.NET Core)</th>
+                </tr>
+              </thead>
+              <tbody id="bridge-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: SNIPPET & AI PROMPT MANAGER ================= -->
+      <section id="tab-snippets" class="tab-section hidden space-y-6">
+        <div class="glass-card rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">
+              <i class="fa-solid fa-code text-emerald-400 mr-2"></i>Snippet Kode & AI Prompt Manager
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">
+              Simpan potongan kode penting (Go, React TS, Next.js, .NET) dan template prompt AI andalan Anda agar mudah dicari dan disalin kapan saja.
+            </p>
+          </div>
+          <button onclick="toggleSnippetModal(true)"
+            class="px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition shrink-0">
+            <i class="fa-solid fa-plus mr-1.5"></i>Simpan Snippet / Prompt Baru
+          </button>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex flex-wrap gap-1.5">
+            <button data-cat="ALL" onclick="setSnippetCategory('ALL')" class="snippet-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-600 text-white">Semua</button>
+            <button data-cat="Golang" onclick="setSnippetCategory('Golang')" class="snippet-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">Golang</button>
+            <button data-cat="React TS" onclick="setSnippetCategory('React TS')" class="snippet-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">React TS</button>
+            <button data-cat="Next.js" onclick="setSnippetCategory('Next.js')" class="snippet-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">Next.js</button>
+            <button data-cat=".NET" onclick="setSnippetCategory('.NET')" class="snippet-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">.NET</button>
+            <button data-cat="AI Prompt" onclick="setSnippetCategory('AI Prompt')" class="snippet-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">AI Prompt</button>
+          </div>
+          <div class="relative w-full sm:w-72">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+            <input type="text" oninput="onSnippetSearch(this.value)" placeholder="Cari judul, tag, atau isi kode..."
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500" />
+          </div>
+        </div>
+
+        <!-- Snippets Grid -->
+        <div id="snippets-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL: ADD NEW SNIPPET / PROMPT -->
+  <div id="snippet-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-xl w-full p-6 border border-slate-700 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white">Tambah Snippet Kode / AI Prompt</h3>
+        <button onclick="toggleSnippetModal(false)" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form onsubmit="addSnippet(event)" class="space-y-3.5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="sm:col-span-2">
+            <label class="block text-xs text-slate-400 mb-1">Judul Snippet / Prompt</label>
+            <input id="snip-title" type="text" required placeholder="Contoh: Go Gin JWT Middleware"
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Kategori</label>
+            <select id="snip-category"
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+              <option value="Golang">Golang</option>
+              <option value="React TS">React TS</option>
+              <option value="Next.js">Next.js</option>
+              <option value=".NET">.NET</option>
+              <option value="AI Prompt">AI Prompt</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Deskripsi Singkat</label>
+            <input id="snip-desc" type="text" placeholder="Kegunaan kode atau konteks..."
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Tag (pisahkan dengan koma)</label>
+            <input id="snip-tags" type="text" placeholder="goroutine, websocket, hooks"
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Isi Kode / Template Prompt</label>
+          <textarea id="snip-code" rows="7" required placeholder="Tempelkan kode atau prompt di sini..."
+            class="w-full font-mono bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="toggleSnippetModal(false)"
+            class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300">
+            Batal
+          </button>
+          <button type="submit"
+            class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-medium text-white">
+            Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Core App Script -->
+  <script src="app.js"></script>
+</body>
+</html>

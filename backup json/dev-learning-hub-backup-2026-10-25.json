@@ -1,0 +1,647 @@
+{
+  "profile": {
+    "name": "Fullstack Engineer (PHP -> Go / TS / Next / .NET)",
+    "todayFocus": "Memahami pola Goroutine & Channel di RTMS_Monitoring serta mengetik Props/Hooks di React TypeScript",
+    "streakDays": 3,
+    "lastActiveDate": "2026-10-25",
+    "pomodoroCompleted": 4
+  },
+  "dailyChecklist": [
+    {
+      "id": "dc-1",
+      "text": "30 Menit: Bedah 1 file kode Golang (Gin/Service/Worker) di project RTMS_Monitoring",
+      "category": "Golang",
+      "done": true
+    },
+    {
+      "id": "dc-2",
+      "text": "30 Menit: Latihan mengetik Component Props & Custom Hook di React + TypeScript tanpa \"any\"",
+      "category": "React TS",
+      "done": false
+    },
+    {
+      "id": "dc-3",
+      "text": "20 Menit: Baca konsep Server Component vs Client Component di Next.js App Router",
+      "category": "Next.js",
+      "done": false
+    },
+    {
+      "id": "dc-4",
+      "text": "20 Menit: Bandingkan Dependency Injection & Controller di ASP.NET Core dengan Laravel Service Container",
+      "category": ".NET",
+      "done": false
+    },
+    {
+      "id": "dc-5",
+      "text": "Catat minimal 1 Snippet atau AI Prompt yang berhasil memecahkan bug hari ini",
+      "category": "AI & Riset",
+      "done": true
+    }
+  ],
+  "roadmaps": [
+    {
+      "id": "golang",
+      "name": "Golang & Gin",
+      "badge": "Prioritas Utama (RTMS)",
+      "color": "cyan",
+      "icon": "fa-brands fa-golang",
+      "description": "Transisi dari PHP OOP ke komposisi Struct, Pointer, Concurrency (Goroutine), dan performa tinggi dengan Gin.",
+      "modules": [
+        {
+          "id": "go-mod-1",
+          "title": "1. Dasar Go, Tipe Data & Pointer",
+          "notes": "Di PHP variabel di-pass by value kecuali object. Di Go, pointer (* dan &) memberi kontrol eksplisit apakah data di-copy atau di-referensi.",
+          "topics": [
+            {
+              "id": "go-1-1",
+              "title": "Package, Module (go.mod), dan Exported Identifier (Huruf Kapital = Public)",
+              "done": true
+            },
+            {
+              "id": "go-1-2",
+              "title": "Slice vs Array, Map, dan operasi append/copy",
+              "done": true
+            },
+            {
+              "id": "go-1-3",
+              "title": "Memahami Pointer (*T dan &x) — kapan pakai value vs pointer",
+              "done": true
+            },
+            {
+              "id": "go-1-4",
+              "title": "Error Handling eksplisit (if err != nil) menggantikan try-catch PHP",
+              "done": true
+            }
+          ]
+        },
+        {
+          "id": "go-mod-2",
+          "title": "2. Struct & Interface vs Class PHP (Laravel/Yii)",
+          "notes": "Go tidak punya keyword \"class\" atau \"extends\". Gunakan Struct untuk data, Receiver Method untuk fungsi class, dan Interface secara implisit.",
+          "topics": [
+            {
+              "id": "go-2-1",
+              "title": "Struct & Struct Tags (`json:\"id\" db:\"id\"`) — setara properti Model + fillable/casts",
+              "done": true
+            },
+            {
+              "id": "go-2-2",
+              "title": "Value Receiver vs Pointer Receiver pada Method Struct",
+              "done": true
+            },
+            {
+              "id": "go-2-3",
+              "title": "Implicit Interface (Duck Typing) untuk Dependency Injection & Mocking",
+              "done": false
+            },
+            {
+              "id": "go-2-4",
+              "title": "Struct Embedding (Composition over Inheritance)",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "go-mod-3",
+          "title": "3. Concurrency: Goroutine, Channel & Context",
+          "notes": "Senjata utama Go yang tidak dimiliki PHP standar. Digunakan di RTMS_Monitoring untuk worker metrics & antrian alert.",
+          "topics": [
+            {
+              "id": "go-3-1",
+              "title": "Menjalankan fungsi asynchronous ringan dengan keyword `go` (Goroutine)",
+              "done": true
+            },
+            {
+              "id": "go-3-2",
+              "title": "Unbuffered vs Buffered Channel untuk komunikasi antar Goroutine",
+              "done": false
+            },
+            {
+              "id": "go-3-3",
+              "title": "Statement `select`, `sync.WaitGroup`, dan `sync.Mutex` (mencegah Race Condition)",
+              "done": false
+            },
+            {
+              "id": "go-3-4",
+              "title": "Context (`context.Context`) untuk Timeout, Cancellation, dan Graceful Shutdown",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "go-mod-4",
+          "title": "4. Gin HTTP Framework & Middleware",
+          "notes": "Mirip Routing & Middleware di Laravel, namun jauh lebih cepat dan menggunakan `*gin.Context`.",
+          "topics": [
+            {
+              "id": "go-4-1",
+              "title": "Routing Group, URL Param (`c.Param`), dan Query (`c.Query`)",
+              "done": true
+            },
+            {
+              "id": "go-4-2",
+              "title": "Request Validation & Binding (`c.ShouldBindJSON`) — setara FormRequest Laravel",
+              "done": true
+            },
+            {
+              "id": "go-4-3",
+              "title": "Custom Middleware (`c.Next()`, `c.AbortWithStatusJSON`) untuk JWT & RBAC",
+              "done": false
+            },
+            {
+              "id": "go-4-4",
+              "title": "Struktur Clean Architecture: Handler (Controller) -> Service -> Repository",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "go-mod-5",
+          "title": "5. Database PostgreSQL (pgx/sqlx) & Redis",
+          "notes": "Berbeda dengan Eloquent yang serba otomatis, di Go query SQL lebih eksplisit dan sangat cepat.",
+          "topics": [
+            {
+              "id": "go-5-1",
+              "title": "Connection Pooling PostgreSQL & Query Row / Select dengan pgx/sqlx",
+              "done": false
+            },
+            {
+              "id": "go-5-2",
+              "title": "Database Transaction (`tx.Begin`, `defer tx.Rollback`, `tx.Commit`)",
+              "done": false
+            },
+            {
+              "id": "go-5-3",
+              "title": "Redis Caching, Rate Limiting, dan Pub/Sub di Go",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "go-mod-6",
+          "title": "6. Real-time WebSocket & Linux Agent",
+          "notes": "Studi kasus langsung pada sistem RTMS_Monitoring.",
+          "topics": [
+            {
+              "id": "go-6-1",
+              "title": "WebSocket Hub Pattern (Register, Unregister, Broadcast client connections)",
+              "done": false
+            },
+            {
+              "id": "go-6-2",
+              "title": "Membaca metrics Linux (`/proc/stat`, `/proc/meminfo`) dari binary Go",
+              "done": false
+            },
+            {
+              "id": "go-6-3",
+              "title": "Cross-compilation binary Go (`GOOS=linux GOARCH=amd64 go build`)",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "react-ts",
+      "name": "React + TypeScript",
+      "badge": "Frontend Modern",
+      "color": "blue",
+      "icon": "fa-brands fa-react",
+      "description": "Membangun UI deklaratif dengan keamanan tipe statis TypeScript, Hooks, dan manajemen state server via TanStack Query.",
+      "modules": [
+        {
+          "id": "rts-mod-1",
+          "title": "1. TypeScript Fundamental & Generics",
+          "notes": "Anggap TypeScript sebagai Type Hinting PHP 8.2+ versi super ketat di sisi Frontend.",
+          "topics": [
+            {
+              "id": "rts-1-1",
+              "title": "`interface` vs `type`, Union Types (`status: \"idle\" | \"loading\" | \"error\"`)",
+              "done": true
+            },
+            {
+              "id": "rts-1-2",
+              "title": "Optional Chaining (`?.`), Nullish Coalescing (`??`), dan Type Narrowing",
+              "done": true
+            },
+            {
+              "id": "rts-1-3",
+              "title": "Generics (`ApiResponse<T>`, `Array<T>`) dan Utility Types (`Partial`, `Pick`, `Omit`, `Record`)",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "rts-mod-2",
+          "title": "2. Component Architecture & Props Typing",
+          "notes": "Berpindah dari manipulasi DOM jQuery/Blade ke komponen deklaratif berbasis state.",
+          "topics": [
+            {
+              "id": "rts-2-1",
+              "title": "Mengetik Props Komponen, `children: React.ReactNode`, dan Default Props",
+              "done": true
+            },
+            {
+              "id": "rts-2-2",
+              "title": "Event Typing (`React.ChangeEvent<HTMLInputElement>`, `React.FormEvent`)",
+              "done": false
+            },
+            {
+              "id": "rts-2-3",
+              "title": "Conditional Rendering & List Key yang optimal",
+              "done": true
+            }
+          ]
+        },
+        {
+          "id": "rts-mod-3",
+          "title": "3. React Hooks: useState, useEffect, useRef, useMemo",
+          "notes": "Memahami siklus hidup render komponen dan kapan efek samping dijalankan.",
+          "topics": [
+            {
+              "id": "rts-3-1",
+              "title": "`useState<T>` dengan tipe eksplisit untuk state objek/array kompleks",
+              "done": true
+            },
+            {
+              "id": "rts-3-2",
+              "title": "`useEffect` Dependency Array & Cleanup Function (mencegah memory leak timer/socket)",
+              "done": false
+            },
+            {
+              "id": "rts-3-3",
+              "title": "`useRef` untuk referensi DOM dan nilai mutable tanpa memicu re-render",
+              "done": false
+            },
+            {
+              "id": "rts-3-4",
+              "title": "`useMemo` & `useCallback` untuk optimasi performa render",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "rts-mod-4",
+          "title": "4. Custom Hooks & Context API",
+          "notes": "Memisahkan logika bisnis dari tampilan UI (mirip memisahkan Service dari Blade view).",
+          "topics": [
+            {
+              "id": "rts-4-1",
+              "title": "Membuat Custom Hook (misal: `useWebSocket`, `useDebounce`, `useAuth`)",
+              "done": false
+            },
+            {
+              "id": "rts-4-2",
+              "title": "React Context API dengan TypeScript untuk Global State (Auth/Theme)",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "rts-mod-5",
+          "title": "5. Data Fetching: TanStack Query (React Query) & Axios",
+          "notes": "Jangan fetch API di dalam useEffect biasa! Gunakan TanStack Query untuk caching, loading, dan auto-refetch.",
+          "topics": [
+            {
+              "id": "rts-5-1",
+              "title": "Setup Axios Instance + Interceptor untuk injeksi Bearer Token JWT otomatis",
+              "done": true
+            },
+            {
+              "id": "rts-5-2",
+              "title": "`useQuery` untuk GET data, caching, `staleTime`, dan `refetchInterval`",
+              "done": false
+            },
+            {
+              "id": "rts-5-3",
+              "title": "`useMutation` + `queryClient.invalidateQueries` setelah POST/PUT/DELETE",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "rts-mod-6",
+          "title": "6. Real-time UI, Charting & Tailwind CSS",
+          "notes": "Integrasi WebSocket stream ke grafik real-time.",
+          "topics": [
+            {
+              "id": "rts-6-1",
+              "title": "Update state grafik secara real-time dari pesan WebSocket",
+              "done": false
+            },
+            {
+              "id": "rts-6-2",
+              "title": "Pola reusable komponen UI dengan Tailwind CSS (Badge, Modal, Data Table)",
+              "done": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nextjs",
+      "name": "Next.js (App Router)",
+      "badge": "Fullstack React",
+      "color": "indigo",
+      "icon": "fa-solid fa-layer-group",
+      "description": "Framework React produksi dengan Server Components (RSC), SSR, routing berbasis folder, dan optimasi performa.",
+      "modules": [
+        {
+          "id": "next-mod-1",
+          "title": "1. App Router & File-based Routing",
+          "notes": "Di Laravel kita definisikan di routes/web.php. Di Next.js, struktur folder di dalam `app/` otomatis menjadi route.",
+          "topics": [
+            {
+              "id": "next-1-1",
+              "title": "Konvensi file: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`",
+              "done": true
+            },
+            {
+              "id": "next-1-2",
+              "title": "Dynamic Routes (`app/servers/[id]/page.tsx`) dan Route Groups (`(dashboard)`)",
+              "done": false
+            },
+            {
+              "id": "next-1-3",
+              "title": "Navigasi dengan `<Link>` dan hook `useRouter`, `usePathname`, `useSearchParams`",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "next-mod-2",
+          "title": "2. Server Components (RSC) vs Client Components",
+          "notes": "Server Component dirender di server (seperti Blade), sedangkan Client Component (`\"use client\"`) memiliki interaktivitas browser.",
+          "topics": [
+            {
+              "id": "next-2-1",
+              "title": "Memahami default Server Component vs kapan harus menambahkan `\"use client\"`",
+              "done": false
+            },
+            {
+              "id": "next-2-2",
+              "title": "Pola komposisi: Menaruh Client Component di paling ujung (leaf) agar bundle tetap kecil",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "next-mod-3",
+          "title": "3. Data Fetching, SSR, SSG & Caching",
+          "notes": "Fetch langsung menggunakan `async/await` di dalam Server Component.",
+          "topics": [
+            {
+              "id": "next-3-1",
+              "title": "Async Server Components: Fetch data langsung tanpa `useEffect`",
+              "done": false
+            },
+            {
+              "id": "next-3-2",
+              "title": "Static vs Dynamic Rendering & Revalidation (`revalidatePath`, `revalidateTag`)",
+              "done": false
+            },
+            {
+              "id": "next-3-3",
+              "title": "Streaming & `<Suspense>` untuk menampilkan skeleton loading per bagian halaman",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "next-mod-4",
+          "title": "4. Server Actions & Route Handlers (API Routes)",
+          "notes": "Mutasi data form langsung ke fungsi server dan pembuatan endpoint API internal.",
+          "topics": [
+            {
+              "id": "next-4-1",
+              "title": "Route Handlers (`app/api/.../route.ts`) untuk endpoint REST/Webhook",
+              "done": false
+            },
+            {
+              "id": "next-4-2",
+              "title": "Server Actions (`\"use server\"`) untuk form submission & validasi Zod",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "next-mod-5",
+          "title": "5. Middleware, Auth & Deployment",
+          "notes": "Proteksi halaman menggunakan Next.js Middleware dan manajemen Cookie HttpOnly.",
+          "topics": [
+            {
+              "id": "next-5-1",
+              "title": "`middleware.ts` untuk cek sesi/token sebelum halaman dirender",
+              "done": false
+            },
+            {
+              "id": "next-5-2",
+              "title": "Build production (`next build`) & konfigurasi Docker / Standalone output",
+              "done": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dotnet",
+      "name": ".NET (C# & ASP.NET Core)",
+      "badge": "Enterprise Backend",
+      "color": "purple",
+      "icon": "fa-solid fa-cubes",
+      "description": "Ekosistem enterprise yang sangat terstruktur. Bagi programmer Laravel/Yii, arsitektur OOP, DI, dan ORM-nya akan terasa sangat familiar!",
+      "modules": [
+        {
+          "id": "net-mod-1",
+          "title": "1. Sintaks C# Modern & Strong Typing",
+          "notes": "C# memiliki struktur class, interface, dan namespace yang sangat mirip dengan PHP modern namun dikompilasi secara statis.",
+          "topics": [
+            {
+              "id": "net-1-1",
+              "title": "Tipe data nilai vs referensi, `var`, Nullable Reference Types (`string?`)",
+              "done": true
+            },
+            {
+              "id": "net-1-2",
+              "title": "Properties (`{ get; set; }`), Primary Constructors, dan `record` untuk DTO",
+              "done": false
+            },
+            {
+              "id": "net-1-3",
+              "title": "Collections (`List<T>`, `Dictionary<TKey, TValue>`, `IEnumerable<T>`)",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "net-mod-2",
+          "title": "2. OOP & Dependency Injection (Service Container)",
+          "notes": "Sangat identik dengan Service Provider di Laravel (`bind`, `singleton`, `scoped`).",
+          "topics": [
+            {
+              "id": "net-2-1",
+              "title": "Interface & Class Implementation di C#",
+              "done": true
+            },
+            {
+              "id": "net-2-2",
+              "title": "Service Lifetimes: `AddTransient`, `AddScoped`, `AddSingleton` di `Program.cs`",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "net-mod-3",
+          "title": "3. LINQ & Async/Await Programming",
+          "notes": "LINQ adalah pasangan langsung dari Laravel Collection (`->where()->map()->first()`).",
+          "topics": [
+            {
+              "id": "net-3-1",
+              "title": "Method LINQ: `.Where()`, `.Select()`, `.FirstOrDefault()`, `.OrderBy()`, `.Any()`",
+              "done": false
+            },
+            {
+              "id": "net-3-2",
+              "title": "Asynchronous Programming dengan `async`, `await`, dan `Task<T>`",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "net-mod-4",
+          "title": "4. ASP.NET Core Web API",
+          "notes": "Membangun RESTful API cepat dengan Controller atau Minimal API + Swagger otomatis.",
+          "topics": [
+            {
+              "id": "net-4-1",
+              "title": "Struktur `Program.cs`, `appsettings.json` (setara `.env` + `config/*.php`)",
+              "done": false
+            },
+            {
+              "id": "net-4-2",
+              "title": "API Controller, Attribute Routing (`[HttpGet]`, `[HttpPost]`), dan `IActionResult`",
+              "done": false
+            },
+            {
+              "id": "net-4-3",
+              "title": "Model Validation dengan Data Annotations / FluentValidation",
+              "done": false
+            }
+          ]
+        },
+        {
+          "id": "net-mod-5",
+          "title": "5. Entity Framework Core (EF Core)",
+          "notes": "ORM resmi .NET yang berperan persis seperti Eloquent ORM / Yii ActiveRecord.",
+          "topics": [
+            {
+              "id": "net-5-1",
+              "title": "`DbContext` & `DbSet<T>` (setara Model Eloquent)",
+              "done": false
+            },
+            {
+              "id": "net-5-2",
+              "title": "EF Core Migrations (`dotnet ef migrations add`, `dotnet ef database update`)",
+              "done": false
+            },
+            {
+              "id": "net-5-3",
+              "title": "Eager Loading dengan `.Include()` (setara `Model::with()` di Laravel) & `.AsNoTracking()`",
+              "done": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "snippets": [
+    {
+      "id": "snip-1792923387695",
+      "title": "prompt project AI",
+      "category": "AI Prompt",
+      "tags": [
+        "AI"
+      ],
+      "description": "prompt",
+      "code": "Halo! Sebelum kita mulai proyek malam ini, silakan baca file CONTEXT.md di root folder ini terlebih dahulu supaya kamu paham profil tech stack saya (Laravel/Yii yang sedang mendalami Golang, React TS, Next.js, dan .NET), riwayat proyek yang sudah kita bangun di folder ini (dev-learning-hub & git-notif-bot), serta gaya diskusi kita.\n\nUntuk sesi chat kali ini, saya ingin membahas / membuat proyek baru yaitu: [TULIS IDE PROYEK MALAM INI DI SINI]"
+    },
+    {
+      "id": "snip-1",
+      "title": "Go (Gin): Pattern Handler -> Service + JSON Binding",
+      "category": "Golang",
+      "tags": [
+        "gin",
+        "handler",
+        "validation",
+        "laravel-controller"
+      ],
+      "description": "Padanan Controller + FormRequest Laravel di Golang Gin dengan error handling yang rapi.",
+      "code": "type CreateServerRequest struct {\n    Hostname string `json:\"hostname\" binding:\"required,min=3\"`\n    IP       string `json:\"ip\" binding:\"required,ip\"`\n}\n\nfunc (h *ServerHandler) Create(c *gin.Context) {\n    var req CreateServerRequest\n    if err := c.ShouldBindJSON(&req); err != nil {\n        c.JSON(http.StatusBadRequest, gin.H{\"error\": err.Error()})\n        return\n    }\n\n    server, err := h.service.RegisterServer(c.Request.Context(), req)\n    if err != nil {\n        c.JSON(http.StatusInternalServerError, gin.H{\"error\": \"Gagal menyimpan server\"})\n        return\n    }\n\n    c.JSON(http.StatusCreated, gin.H{\"data\": server})\n}"
+    },
+    {
+      "id": "snip-2",
+      "title": "Go: Worker Pool / Periodic Ticker dengan Context Cancellation",
+      "category": "Golang",
+      "tags": [
+        "goroutine",
+        "channel",
+        "context",
+        "worker"
+      ],
+      "description": "Pola menjalankan background job secara berkala yang bisa dihentikan dengan aman (Graceful Shutdown).",
+      "code": "func StartMetricsCollector(ctx context.Context, interval time.Duration) {\n    ticker := time.NewTicker(interval)\n    defer ticker.Stop()\n\n    for {\n        select {\n        case <-ctx.Done():\n            log.Println(\"Worker dihentikan dengan aman...\")\n            return\n        case <-ticker.C:\n            collectAndBroadcastMetrics()\n        }\n    }\n}"
+    },
+    {
+      "id": "snip-3",
+      "title": "React + TS: Typed Custom Hook dengan TanStack Query",
+      "category": "React TS",
+      "tags": [
+        "react-query",
+        "typescript",
+        "hooks",
+        "api"
+      ],
+      "description": "Cara bersih mengambil data API lengkap dengan tipe TypeScript, loading state, dan auto-refresh.",
+      "code": "import { useQuery } from '@tanstack/react-query';\nimport { apiClient } from '@/lib/api';\n\nexport interface ServerNode {\n  id: string;\n  hostname: string;\n  cpuUsage: number;\n  status: 'online' | 'offline';\n}\n\nexport function useServerNodes() {\n  return useQuery<ServerNode[], Error>({\n    queryKey: ['servers', 'list'],\n    queryFn: async () => {\n      const { data } = await apiClient.get<{ data: ServerNode[] }>('/api/v1/servers');\n      return data.data;\n    },\n    refetchInterval: 10000, // Auto refresh tiap 10 detik\n  });\n}"
+    },
+    {
+      "id": "snip-4",
+      "title": ".NET C# vs Laravel: LINQ & EF Core Eager Loading",
+      "category": ".NET",
+      "tags": [
+        "csharp",
+        "ef-core",
+        "linq",
+        "eloquent"
+      ],
+      "description": "Perbandingan query Eloquent `Server::with(\"alerts\")->where(\"is_active\", true)->get()` di C# EF Core.",
+      "code": "// Di ASP.NET Core Repository / Service:\npublic async Task<List<ServerDto>> GetActiveServersAsync(CancellationToken ct)\n{\n    return await _dbContext.Servers\n        .AsNoTracking() // Optimasi read-only (cepat!)\n        .Include(s => s.Alerts) // Setara ::with('alerts') di Laravel\n        .Where(s => s.IsActive)\n        .OrderByDescending(s => s.CreatedAt)\n        .Select(s => new ServerDto(s.Id, s.Hostname, s.Alerts.Count))\n        .ToListAsync(ct);\n}"
+    },
+    {
+      "id": "snip-5",
+      "title": "AI Prompt: Bedah Kode Baru dengan Analogi Laravel/Yii",
+      "category": "AI Prompt",
+      "tags": [
+        "prompt",
+        "learning",
+        "analogy",
+        "debugging"
+      ],
+      "description": "Gunakan prompt ini saat meminta AI menjelaskan kode Go, React TS, Next.js, atau .NET.",
+      "code": "Saya adalah Web Developer berpengalaman di PHP (Laravel & Yii2) yang sedang mendalami [Golang / React TypeScript / Next.js / .NET].\n\nTolong jelaskan kode/konsep berikut:\n1. Apa fungsi utamanya dan bagaimana alur eksekusinya langkah demi langkah?\n2. Apa padanan konsepnya di Laravel atau Yii2 agar saya langsung paham secara arsitektur?\n3. Apa best practice atau jebakan (pitfall) yang harus saya hindari?"
+    },
+    {
+      "id": "snip-6",
+      "title": "AI Prompt: Code Review & Refactoring Sebelum Commit",
+      "category": "AI Prompt",
+      "tags": [
+        "prompt",
+        "review",
+        "clean-code",
+        "security"
+      ],
+      "description": "Prompt untuk mengecek kualitas kode Go / TypeScript sebelum masuk ke repository.",
+      "code": "Tolong review perubahan kode saya di atas sebagai Senior Engineer:\n1. Cek potensi Race Condition / Memory Leak (untuk Goroutine atau React useEffect).\n2. Pastikan Type Safety (tidak ada tipe 'any' tersembunyi di TypeScript atau nil pointer dereference di Go).\n3. Berikan saran refactoring yang tetap sederhana (KISS) tanpa over-engineering."
+    }
+  ]
+}
